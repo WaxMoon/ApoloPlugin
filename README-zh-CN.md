@@ -13,7 +13,7 @@
 
 ## 了解接口函数并上手
 
-接口函数可以在仓库[app module](ApoloPlugin)找到，目前只提供了Java版本
+接口函数可以在仓库[ApoloPlugin module](ApoloPlugin)找到，目前只提供了Java版本
 示例代码可以在[app module](app)中找到
 
 ### 1.加载核心so库，初始化hook引擎
@@ -111,5 +111,5 @@ hook引擎中会绕过hiddenApi检测，该处参考了[RePublic](https://github
 ### @WaxMoon android framework/hook爱好者，2015年入坑
 ### 个人QQ3403281183
 
-### ArtHook交流群
+### ArtHook交流群(加群能获取到完整版插件，并且群消息会及时同步最新feature)
 ![ArtHook交流群](raw/qq_scan.png)
