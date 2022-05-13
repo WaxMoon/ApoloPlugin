@@ -1,12 +1,8 @@
-/**
- * Created by WaxMoon on 2022/5/8.
- */
-
 package core.apolo;
 
 import android.util.Log;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Member;
 import java.util.HashMap;
 
 public class ArtHook {
@@ -19,7 +15,17 @@ public class ArtHook {
         Log.d(TAG, "preLoad success!");
     }
 
-    public static boolean startHook(HashMap<Method, Method> proxyMethods) {
+    /**
+     *
+     * @param instance If origin method is static, you can pass null
+     * @param args params must match it's signature
+     * @return
+     */
+    public static <T> T callOrigin(Object instance/*Nullable*/, Object... args) {
+        return (T)nativeCallOrigin(instance, args);
+    }
+
+    public static boolean startHook(HashMap<Member, Member> proxyMethods) {
         if (sAlreadHooked) {
             Log.e(TAG, "already hooked! only can be called once!");
             return false;
@@ -28,27 +34,27 @@ public class ArtHook {
         return nativeStartHook(proxyMethods);
     }
 
+    private static native Object nativeCallOrigin(Object instance/*Nullable*/, Object[] args);
+
     /**
      *
      * @param proxyMethods <origin-Method, proxy-Method>
      * @return If hook success, will return true
      */
-    public static native boolean nativeStartHook(HashMap<Method, Method> proxyMethods);
+    private static native boolean nativeStartHook(HashMap<Member, Member> proxyMethods);
 
     /**
+     * Note: Only the current thread is affected!
      *
-     * @param origin if you want to call origin-method, you need to call like below
+     * If you want to disable hook-status in the current thread, pass true.
+     *     HookTransition(true);
      *
-     *               try {
-     *                   //1.disable proxy method so that you can call origin-method
-     *                   hookTransition(true);
-     *                   ...
-     *                   //2.call originMethod here
-     *                   ...
-     *               } finally {
-     *                   //3.enable proxy method
-     *                   hookTransition(false);
-     *               }
+     * enable hook-status in the current thread, Pass false
+     *    HookTransition(false);
+     *
+     * @param origin Represents whether the original function is executed when method enter
+     *               true: call originMethod
+     *               false: call proxyMethod
      */
     public static native void hookTransition(boolean origin);
 
