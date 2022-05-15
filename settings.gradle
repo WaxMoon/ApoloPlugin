@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 rootProject.name = "ApoloPlugin"
 include ':app'
 include ':ApoloPlugin'
+include ':xposed'
