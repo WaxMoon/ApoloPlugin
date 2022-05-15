@@ -2,6 +2,7 @@ package com.example.arthook;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -65,6 +66,10 @@ public class MainActivity extends AppCompatActivity {
             proxyMethods.put(method_TextView_ctor, proxyMethod_TextView_ctor);
             /******************2.TextView.<init>(Context.class) BEGIN*******/
 
+            Method method_Activity_onCreate = Activity.class.getDeclaredMethod("onCreate", Bundle.class);
+            Method proxyMethod_Activity_onCreate = MainActivity.class.getDeclaredMethod("proxy_Activity_onCreate", Activity.class, Bundle.class);
+            proxyMethods.put(method_Activity_onCreate, proxyMethod_Activity_onCreate);
+
 
             /*****************3.startHook BEGIN******************/
             ArtHook.startHook(proxyMethods);
@@ -111,5 +116,10 @@ public class MainActivity extends AppCompatActivity {
         Toast.makeText(DemoApplication.getMyApplication(), "proxy_TextView_ctor called", Toast.LENGTH_SHORT).show();
         ArtHook.callOrigin(tv, context);
         Log.d(TAG, "proxy_TextView_ctor called--- ");
+    }
+
+    public static void proxy_Activity_onCreate(Activity activity, Bundle bundle) {
+        Log.d(TAG, "proxy_Activity_onCreate called " + activity);
+        ArtHook.callOrigin(activity, bundle);
     }
 }
