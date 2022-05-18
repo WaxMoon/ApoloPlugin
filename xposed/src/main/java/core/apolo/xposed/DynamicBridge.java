@@ -6,7 +6,7 @@ import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 
-import core.apolo.ApoloHook;
+import org.apolo.ArtEngine;
 import core.apolo.xposed.util.ActivityThreadCompat;
 import core.apolo.xposed.util.FileUtils;
 import de.robv.android.xposed.XposedBridge;
@@ -17,7 +17,7 @@ public final class DynamicBridge {
         if (!checkMember(hookMethod)) {
             return;
         }
-        if (ApoloHook.contains(hookMethod)) {
+        if (ArtEngine.contains(hookMethod)) {
             XposedLog.w("already hook :" + hookMethod.toString());
             return;
         }

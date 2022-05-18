@@ -18,7 +18,7 @@ import java.lang.reflect.Modifier;
 import java.nio.ByteBuffer;
 import java.util.Map;
 
-import core.apolo.ApoloHook;
+import org.apolo.ArtEngine;
 import core.apolo.xposed.util.DexMakerUtil;
 import dalvik.system.InMemoryDexClassLoader;
 import de.robv.android.xposed.XC_MethodHook;
@@ -119,7 +119,7 @@ public class HookerDexMaker {
         if (hookEntity == null) {
             hookEntity = doMake(className, dexName);
         }
-        ApoloHook.addHook(member, hookEntity);
+        ArtEngine.addHook(member, hookEntity);
     }
 
     private Method doMake(String className, String dexName) throws Exception {
@@ -250,12 +250,12 @@ public class HookerDexMaker {
 
     public static Object hookBridge(Member origin, XposedBridge.AdditionalHookInfo additionalHookInfo, Object thiz, Object... args) throws Throwable {
         if (XposedBridge.disableHooks) {
-            return ApoloHook.callOrigin(thiz, args);
+            return ArtEngine.callOrigin(thiz, args);
         }
         Object[] snapshot = additionalHookInfo.callbacks.getSnapshot();
 
         if (snapshot == null || snapshot.length == 0) {
-            return ApoloHook.callOrigin(thiz, args);
+            return ArtEngine.callOrigin(thiz, args);
         }
 
         XC_MethodHook.MethodHookParam param = new XC_MethodHook.MethodHookParam();
@@ -285,7 +285,7 @@ public class HookerDexMaker {
         // call original method if not requested otherwise
         if (!param.returnEarly) {
             try {
-                param.setResult(ApoloHook.callOrigin(thiz, param.args));
+                param.setResult(ArtEngine.callOrigin(thiz, param.args));
             } catch (Throwable e) {
                 XposedBridge.log(e);
                 param.setThrowable(e);

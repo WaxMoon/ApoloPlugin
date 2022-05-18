@@ -2,6 +2,12 @@ plugins {
     id 'com.android.library'
 }
 
+ext {
+    POM_ARTIFACT_ID = "ApoloPlugin"
+    POM_NAME = "ApoloPlugin"
+    POM_DESCRIPTION = "ApoloPlugin is a lightweight java hook module on android which supports armeabi-v7a, arm64-v8a."
+}
+
 android {
     compileSdk rootProject.ext.compileSdkVersion
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -15,11 +21,15 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -28,3 +38,5 @@ android {
 
 dependencies {
 }
+
+apply from: rootProject.file('gradle/publish.gradle')

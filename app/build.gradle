@@ -37,7 +37,12 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
-    implementation project(path: ':ApoloPlugin')
-    implementation project(path: ':xposed')
 
+    if (rootProject.ext.useLocalLibrary) {
+        implementation project(':ApoloPlugin')
+        implementation project(':xposed')
+    } else {
+        implementation "io.github.waxmoon:ApoloPlugin:${POM_VERSION_NAME}"
+        implementation "io.github.waxmoon:xposed:${POM_VERSION_NAME}"
+    }
 }

@@ -1,4 +1,4 @@
-package core.apolo;
+package org.apolo;
 
 import android.util.Log;
 
@@ -6,13 +6,12 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
-import java.util.Arrays;
 import java.util.HashMap;
 
 class ArtHookInternal {
     final static HashMap<Member, Member> methods = new HashMap<>();
 
-    private static final String TAG = "ART_HOOK";
+    private static final String TAG = "ArtHookInternal";
 
     public static void addHooker(ClassLoader loader, Class<?> cls, boolean ignoreException) throws Throwable {
         if (loader == null) {
@@ -38,9 +37,10 @@ class ArtHookInternal {
                         entity._constructor = true;
                     }
                 }
+                if (entity.name == null) continue;
+
                 if (annotations.length > 0) {
                     for (int i = 0; i < annotations[0].length; i++) {
-                        Log.e(TAG, "addHooker: " + annotations[0][i].annotationType());
                         if (annotations[0][i].annotationType() == ThisObject.class) {
                             entity._static = true;
                             break;
@@ -76,6 +76,7 @@ class ArtHookInternal {
                     m.setAccessible(true);
                     entity.member = m;
                 }
+                Log.d(TAG, String.format("addHooker: %s.%s", entity.declaredClass.getName(), entity.name));
                 ArtHookInternal.methods.put(entity.member, method);
             } catch (Throwable e) {
                 if (!ignoreException) {

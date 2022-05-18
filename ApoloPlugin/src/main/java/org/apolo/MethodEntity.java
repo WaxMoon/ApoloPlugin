@@ -1,4 +1,4 @@
-package core.apolo;
+package org.apolo;
 
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;

@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import core.apolo.ApoloHook;
+import org.apolo.ArtEngine;
 import core.apolo.xposed.DynamicBridge;
 import core.apolo.xposed.XposedCompat;
 import de.robv.android.xposed.callbacks.XC_InitPackageResources;
@@ -287,7 +287,7 @@ public final class XposedBridge {
             throws NullPointerException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 
         try {
-            return ApoloHook.callOrigin(method, thisObject, args);
+            return ArtEngine.callOrigin(method, thisObject, args);
         } catch (NullPointerException e) {
             throw e;
         } catch (Throwable throwable) {

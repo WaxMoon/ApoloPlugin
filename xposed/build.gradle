@@ -1,9 +1,13 @@
 apply plugin: 'com.android.library'
 
+ext {
+    POM_ARTIFACT_ID = "xposed"
+    POM_NAME = "ApoloXposed"
+    POM_DESCRIPTION = "An extension library of ApoloPlugin module"
+}
+
 android {
     compileSdk rootProject.ext.compileSdkVersion
-
-
 
     defaultConfig {
         minSdk rootProject.ext.minSdkVersion
@@ -16,18 +20,28 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+        }
         release {
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
+    packagingOptions {
+        exclude '**/libapolo.so'
+    }
 }
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.jakewharton.android.repackaged:dalvik-dx:9.0.0_r3'
-    compileOnly project(':ApoloPlugin')
+    if (rootProject.ext.useLocalLibrary) {
+        compileOnly project(':ApoloPlugin')
+    } else {
+        compileOnly "io.github.waxmoon:ApoloPlugin:${POM_VERSION_NAME}"
+    }
 }
 
-
+apply from: rootProject.file('gradle/publish.gradle')
