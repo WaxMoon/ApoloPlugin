@@ -38,7 +38,7 @@ public class ActivityThreadCompat {
         synchronized (ActivityThreadCompat.class) {
             if (processName == null) {
                 try {
-                    Method method = obtain().getDeclaredMethod("currentApplication");
+                    Method method = obtain().getDeclaredMethod("currentProcessName");
                     processName = (String) method.invoke(null);
                 } catch (Throwable e) {
                     e.printStackTrace();
@@ -69,7 +69,7 @@ public class ActivityThreadCompat {
                 e.printStackTrace();
             }
         }
-        return null;
+        return classActivityThread;
     }
 
     public static void inject(Context app, String processName, File cacheDir) {

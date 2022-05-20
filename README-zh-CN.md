@@ -1,11 +1,15 @@
 # ApoloPlugin
 
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
-![](https://img.shields.io/badge/release-0.0.1-red.svg?style=flat)
+![](https://img.shields.io/badge/release-0.0.2-red.svg?style=flat)
 ![](https://img.shields.io/badge/Android-8.1%20--%2012-blue.svg?style=flat)
 ![](https://img.shields.io/badge/arch-armeabi--v7a%20%7C%20arm64--v8a-blue.svg?style=flat)
 
 **ApoloPlugin** 提供了一个Android轻量级的java hook 库，它支持 arm32 和 arm64两种架构。Apolo意为阿波罗，其为艺术之神，Art翻译过来也有艺术之意，故以此命名。
+
+## 相关文档
+
+[Apolo插件实战-ROM环境注入app分析其行为](docs/Apolo%E6%8F%92%E4%BB%B6%E5%AE%9E%E6%88%98-ROM%E7%8E%AF%E5%A2%83%E6%B3%A8%E5%85%A5app%E5%88%86%E6%9E%90%E5%85%B6%E8%A1%8C%E4%B8%BA.md)
 
 ## 背景
 
@@ -65,14 +69,14 @@ Instrumentation::InstrumentationLevel Instrumentation::GetCurrentInstrumentation
 ApoloPlugin目前发布在[maven central](https://search.maven.org/), 方便接入
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:ApoloPlugin:0.0.1"
+    implementation "io.github.waxmoon:ApoloPlugin:0.0.2"
 }
 ```
 
 ### 如果您要使用xposed api，也可以增加xposed依赖
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:xposed:0.0.1"
+    implementation "io.github.waxmoon:xposed:0.0.2"
 }
 ```
 
@@ -138,7 +142,7 @@ public class StringProxy {
         代理函数中支持调用其他被代理的函数，但是一旦调用链形成A->ProxyA->B->ProxyB->A这样一个环形结构，就会出现死循环。您可以在调用其他函数时，尝试使用ArtEngine.hookTransition规避此类问题。app样例中就有该类问题，比如hook了StringBuilder.toString函数，并且在代理函数中使用Log.d，有可能就会因为再次间接调用StringBuilder.toString, 导致死循环.
 
 下图为StringBuilder.toString代理函数的smali code，我们可以看到字符串拼接被编译成了StringBuilder.append，最后会调用StringBuilder.toString。
-![死循环](raw/StringBuilder_toString.png)
+![死循环](docs/assets/StringBuilder_toString.png)
 
 为了防止死循环，我在[Slog.d代码前后添加了hookTransition解决](https://github.com/WaxMoon/ApoloPlugin/blob/main/app/src/main/java/hook/java/lang/StringBuilder.java)
 ```Java
@@ -266,9 +270,9 @@ public class ActivityThread {
 ### 个人QQ3403281183
 
 群消息会及时同步最新feature。
-### ApoloPlugin微信群(加WaxMoon微信索取)
+### ApoloPlugin微信群
 
-![ApoloPlugin微信群](raw/WaxMoon_wechat.png)
+![ApoloPlugin微信群](docs/assets/WaxMoon_wechat.png)
 
 ### ApoloPlugin QQ群
-![ArtHook交流群](raw/qq_scan.png)
+![ArtHook交流群](docs/assets/qq_scan.png)

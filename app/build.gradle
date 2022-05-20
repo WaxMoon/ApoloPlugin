@@ -8,7 +8,7 @@ android {
     ndkVersion rootProject.ext.ndkVersion
 
     defaultConfig {
-        applicationId "com.example.arthook"
+        applicationId "com.example.apolo"
         minSdk rootProject.ext.minSdkVersion
         targetSdk rootProject.ext.targetSdkVersion
         versionCode 1
