@@ -1,15 +1,23 @@
 # ApoloPlugin
 
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
-![](https://img.shields.io/badge/release-0.0.2-red.svg?style=flat)
+![](https://img.shields.io/badge/release-0.0.4-red.svg?style=flat)
 ![](https://img.shields.io/badge/Android-8.1%20--%2012-blue.svg?style=flat)
 ![](https://img.shields.io/badge/arch-armeabi--v7a%20%7C%20arm64--v8a-blue.svg?style=flat)
 
+
 **ApoloPlugin** 提供了一个Android轻量级的java hook 库，它支持 arm32 和 arm64两种架构。Apolo意为阿波罗，其为艺术之神，Art翻译过来也有艺术之意，故以此命名。
+
+## 最新版本号
+
+    ApoloPlugin: 0.0.4
+    xposed: 0.0.4
 
 ## 相关文档
 
 [Apolo插件实战-ROM环境注入app分析其行为](docs/Apolo%E6%8F%92%E4%BB%B6%E5%AE%9E%E6%88%98-ROM%E7%8E%AF%E5%A2%83%E6%B3%A8%E5%85%A5app%E5%88%86%E6%9E%90%E5%85%B6%E8%A1%8C%E4%B8%BA.md)
+
+[Apolo插件实战-dex反优化后trace代码](docs/Apolo%E6%8F%92%E4%BB%B6%E5%AE%9E%E6%88%98-dex%E5%8F%8D%E4%BC%98%E5%8C%96%E5%90%8Etrace%E4%BB%A3%E7%A0%81.md)
 
 ## 背景
 
@@ -69,14 +77,14 @@ Instrumentation::InstrumentationLevel Instrumentation::GetCurrentInstrumentation
 ApoloPlugin目前发布在[maven central](https://search.maven.org/), 方便接入
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:ApoloPlugin:0.0.2"
+    implementation "io.github.waxmoon:ApoloPlugin:0.0.4"
 }
 ```
 
 ### 如果您要使用xposed api，也可以增加xposed依赖
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:xposed:0.0.2"
+    implementation "io.github.waxmoon:xposed:0.0.4"
 }
 ```
 

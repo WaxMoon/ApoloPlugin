@@ -1,19 +1,44 @@
 package org.apolo;
 
+import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
+import static java.lang.annotation.RetentionPolicy.SOURCE;
+
 import android.os.Build;
 import android.util.Log;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.Target;
 import java.lang.reflect.Member;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 
 public class ArtEngine {
     private static final String TAG = "ApoloEngine";
+    @IntDef({
+            MODE_SIMPLE,
+            MODE_TRAMPOLINE,
+            MODE_INTERPRET
+    })
+    public @interface MODE {}
+    public static final int MODE_SIMPLE = 0x1;
+    public static final int MODE_TRAMPOLINE = 0x1 << 1;
+    public static final int MODE_INTERPRET = 0x1 << 2;
+
+    private static volatile int sInterpretMode = 0;
+    private static volatile boolean sInterpretLogOn = false;
     private static volatile boolean sAlreadyHooked = false;
 
     public static void preLoad() {
         System.loadLibrary("apolo");
         Log.d(TAG, "preLoad success!");
+    }
+
+    public static void setHookMode(@MODE int mode) {
+        sInterpretMode = mode;
+    }
+
+    public static void enableInterpretLog() {
+        sInterpretLogOn = true;
     }
 
     public static void addHooker(Class<?> cls) {
@@ -53,7 +78,7 @@ public class ArtEngine {
             return false;
         }
         sAlreadyHooked = true;
-        return nativeStartHook(ArtHookInternal.methods);
+        return nativeStartHook(ArtHookInternal.methods, sInterpretMode, sInterpretLogOn);
     }
 
     /**
@@ -85,11 +110,19 @@ public class ArtEngine {
 
     /**
      * @param proxyMethods <origin-Method, proxy-Method>
+     * @param mode {@link MODE}
+     * @param interpretLogOn
      * @return If hook success, will return true
      */
-    private static native boolean nativeStartHook(HashMap<Member, Member> proxyMethods);
+    private static native boolean nativeStartHook(HashMap<Member, Member> proxyMethods, @MODE int mode, boolean interpretLogOn);
 
     private static native void reserve0();
 
     private static native void reserve1();
+
+    @Retention(SOURCE)
+    @Target({ANNOTATION_TYPE})
+    @interface IntDef {
+        int[] value() default {};
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.apolo;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -34,6 +35,20 @@ public class MainActivity extends ButtonActivity {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+            }
+        });
+
+        addButton("Handler enqueueMessage", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "Handler post begin++++");
+                new Handler().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Log.d(TAG, "runnable execute...");
+                    }
+                });
+                Log.d(TAG, "Handler post end----");
             }
         });
 

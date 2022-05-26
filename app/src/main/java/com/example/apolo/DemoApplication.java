@@ -46,12 +46,12 @@ public class DemoApplication extends Application {
 
     private void initHook() {
         ArtEngine.addHookers(getClassLoader(),
-                StringProxy.class,
-                StringBuilder.class,
+//                StringProxy.class,
+//                StringBuilder.class,
                 FileProxy.class,
                 ProcessProxy.class,
-                HandlerProxy.class,
-                ActivityThread.class,
+//                HandlerProxy.class,
+//                ActivityThread.class,
                 ApplicationPackageManager.class,
                 ContextImpl.class,
                 Settings.Global.class,
@@ -86,6 +86,8 @@ public class DemoApplication extends Application {
                 Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
             }
         });
+        ArtEngine.setHookMode(ArtEngine.MODE_SIMPLE);
+        ArtEngine.enableInterpretLog();
         ArtEngine.startHook();
     }
 }
