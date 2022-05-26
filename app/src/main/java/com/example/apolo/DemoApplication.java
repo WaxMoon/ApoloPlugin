@@ -86,6 +86,7 @@ public class DemoApplication extends Application {
                 Log.e("XposedCompat", "afterHookedMethod: " + param.method.getName());
             }
         });
+        //ArtEngine.setHookMode(ArtEngine.MODE_INTERPRET);
         ArtEngine.startHook();
     }
 }
