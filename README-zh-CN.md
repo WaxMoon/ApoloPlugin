@@ -1,7 +1,7 @@
 # ApoloPlugin
 
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
-![](https://img.shields.io/badge/release-0.0.4-red.svg?style=flat)
+![](https://img.shields.io/badge/release-0.0.5-red.svg?style=flat)
 ![](https://img.shields.io/badge/Android-8.1%20--%2012-blue.svg?style=flat)
 ![](https://img.shields.io/badge/arch-armeabi--v7a%20%7C%20arm64--v8a-blue.svg?style=flat)
 
@@ -10,14 +10,19 @@
 
 ## 最新版本号
 
-    ApoloPlugin: 0.0.4
-    xposed: 0.0.4
+    ApoloPlugin: 0.0.5
+    xposed: 0.0.5
+
+
+**注意**: 目前apolo还未正式发布release版本，版本change暂时只在微信群提供
 
 ## 相关文档
 
 [Apolo插件实战-ROM环境注入app分析其行为](docs/Apolo%E6%8F%92%E4%BB%B6%E5%AE%9E%E6%88%98-ROM%E7%8E%AF%E5%A2%83%E6%B3%A8%E5%85%A5app%E5%88%86%E6%9E%90%E5%85%B6%E8%A1%8C%E4%B8%BA.md)
 
 [Apolo插件实战-dex反优化后trace代码](docs/Apolo%E6%8F%92%E4%BB%B6%E5%AE%9E%E6%88%98-dex%E5%8F%8D%E4%BC%98%E5%8C%96%E5%90%8Etrace%E4%BB%A3%E7%A0%81.md)
+
+[Apolo插件优化-支持trace过滤](docs/Apolo%E6%8F%92%E4%BB%B6%E4%BC%98%E5%8C%96-%E6%94%AF%E6%8C%81trace%E8%BF%87%E6%BB%A4.md)
 
 ## 背景
 
@@ -77,14 +82,14 @@ Instrumentation::InstrumentationLevel Instrumentation::GetCurrentInstrumentation
 ApoloPlugin目前发布在[maven central](https://search.maven.org/), 方便接入
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:ApoloPlugin:0.0.4"
+    implementation "io.github.waxmoon:ApoloPlugin:0.0.5"
 }
 ```
 
 ### 如果您要使用xposed api，也可以增加xposed依赖
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:xposed:0.0.4"
+    implementation "io.github.waxmoon:xposed:0.0.5"
 }
 ```
 
@@ -261,6 +266,21 @@ public class ActivityThread {
 2) false: 状态切换为hook，该线程将进行相关函数代理.
 
 **注意**: 如果您在第二步中，有大量逻辑代码，如果该处逻辑中有直接或者间接调用某一个被hook的函数，那么它将不会被代理，直到您调用hookTransition(false)为止。所以此处使用了finally语句块，确保hook继续生效，否则当前线程hook功能会失效(仅当前线程)。
+
+#### 7.2 逆向场景可使用解释执行模式
+
+**有网友反馈说有hook不到的情况**。首先建议大家使用apolo最新版本，其次在逆向场景下可直接使用解释执行模式。该模式对app影响不算太大。
+
+```Java
+ArtEngine.setHookMode(ArtEngine.MODE_INTERPRET);
+```
+
+#### 7.3 线上合规检测可使用简单模式
+**欢迎使用apolo线上测试**。Apolo插件不会使用inlineHook对ArtMethod->quick_entry进行inlineHook,这也单方面体现了apolo的优势。因为合规api调用，肯定是app本身跨dex直接调用系统api，此场景下使用apolo简单模式即可
+
+```Java
+ArtEngine.setHookMode(ArtEngine.MODE_SIMPLE);
+```
 
 
 ## 愿景

@@ -3,6 +3,7 @@
     package="com.example.apolo">
 
     <application
+        android:extractNativeLibs="false"
         android:name=".DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

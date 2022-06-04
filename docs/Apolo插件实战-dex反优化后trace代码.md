@@ -50,6 +50,9 @@
 ### 第二步:调用ArtEngine.enableInterpretLog函数
 可以设置为ON、OFF两种选择。当为ON时，adb log会有大量log。
 
+### 第三步:调用ArtEngine.startHook
+如果您不hook java，也需要调用此接口
+
 **友情提醒:** 会造成app卡顿比较严重
 
 ## 案例-trace某讯聊天软件

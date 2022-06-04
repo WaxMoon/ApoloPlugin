@@ -26,6 +26,7 @@ public class ArtEngine {
 
     private static volatile int sInterpretMode = 0;
     private static volatile boolean sInterpretLogOn = false;
+    private static volatile String sInterpretFilter = null;
     private static volatile boolean sAlreadyHooked = false;
 
     public static void preLoad() {
@@ -39,6 +40,10 @@ public class ArtEngine {
 
     public static void enableInterpretLog() {
         sInterpretLogOn = true;
+    }
+
+    public static void setInterpretFilterRegex(String regex) {
+        sInterpretFilter = regex;
     }
 
     public static void addHooker(Class<?> cls) {
@@ -78,7 +83,7 @@ public class ArtEngine {
             return false;
         }
         sAlreadyHooked = true;
-        return nativeStartHook(ArtHookInternal.methods, sInterpretMode, sInterpretLogOn);
+        return nativeStartHook(ArtHookInternal.methods, sInterpretMode, sInterpretLogOn, sInterpretFilter);
     }
 
     /**
@@ -112,9 +117,10 @@ public class ArtEngine {
      * @param proxyMethods <origin-Method, proxy-Method>
      * @param mode {@link MODE}
      * @param interpretLogOn
+     * @param filterRegex
      * @return If hook success, will return true
      */
-    private static native boolean nativeStartHook(HashMap<Member, Member> proxyMethods, @MODE int mode, boolean interpretLogOn);
+    private static native boolean nativeStartHook(HashMap<Member, Member> proxyMethods, @MODE int mode, boolean interpretLogOn, String filterRegex);
 
     private static native void reserve0();
 
