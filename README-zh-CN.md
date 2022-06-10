@@ -1,17 +1,21 @@
 # ApoloPlugin
 
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
-![](https://img.shields.io/badge/release-0.0.5-red.svg?style=flat)
+![](https://img.shields.io/badge/release-0.0.6-red.svg?style=flat)
 ![](https://img.shields.io/badge/Android-8.1%20--%2012-blue.svg?style=flat)
 ![](https://img.shields.io/badge/arch-armeabi--v7a%20%7C%20arm64--v8a-blue.svg?style=flat)
 
+
+## 声明
+
+近期被恶意投诉黑产活动，waxmoon微信被禁言，令人哭笑不得。waxmoon只是一个技术者，apolo插件也只是一个技术框架，仅此而已。
 
 **ApoloPlugin** 提供了一个Android轻量级的java hook 库，它支持 arm32 和 arm64两种架构。Apolo意为阿波罗，其为艺术之神，Art翻译过来也有艺术之意，故以此命名。
 
 ## 最新版本号
 
-    ApoloPlugin: 0.0.5
-    xposed: 0.0.5
+    ApoloPlugin: 0.0.6
+    xposed: 0.0.6
 
 
 **注意**: 目前apolo还未正式发布release版本，版本change暂时只在微信群提供
@@ -82,14 +86,14 @@ Instrumentation::InstrumentationLevel Instrumentation::GetCurrentInstrumentation
 ApoloPlugin目前发布在[maven central](https://search.maven.org/), 方便接入
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:ApoloPlugin:0.0.5"
+    implementation "io.github.waxmoon:ApoloPlugin:0.0.6"
 }
 ```
 
 ### 如果您要使用xposed api，也可以增加xposed依赖
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:xposed:0.0.5"
+    implementation "io.github.waxmoon:xposed:0.0.6"
 }
 ```
 
@@ -295,10 +299,12 @@ ArtEngine.setHookMode(ArtEngine.MODE_SIMPLE);
 
 ## 个人简介
 ### @WaxMoon android framework/hook爱好者，2015年入坑
-### 个人QQ3403281183
+### 个人微信WaxMoon2018
 
-群消息会及时同步最新feature。
+### 微信搜索公众号: Apolo插件技术
+
 ### ApoloPlugin微信群
+群消息会及时同步最新feature。
 
 ![ApoloPlugin微信群](docs/assets/WaxMoon_wechat.png)
 
