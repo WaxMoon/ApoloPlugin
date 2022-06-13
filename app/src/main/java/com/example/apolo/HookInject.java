@@ -82,9 +82,9 @@ public class HookInject {
             }
         });
         //split ','
-        ArtEngine.setInterpretFilterRegex("android.app.*,android.os.*");
-        ArtEngine.enableInterpretLog();
-        ArtEngine.setHookMode(ArtEngine.MODE_SIMPLE);
+        //ArtEngine.setInterpretFilterRegex("android.app.*,android.os.*");
+        //ArtEngine.enableInterpretLog();
+        ArtEngine.setHookMode(ArtEngine.MODE_INTERPRET);//如果已声明debuggable=true，此处不需要再调用
         ArtEngine.startHook();
     }
 }

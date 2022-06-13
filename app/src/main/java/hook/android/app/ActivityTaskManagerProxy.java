@@ -3,13 +3,12 @@ package hook.android.app;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import org.apolo.ArtEngine;
 import org.apolo.HookName;
 import org.apolo.ThisObject;
 
-import java.util.ArrayList;
+import hook.utils.Slog;
 
 @HookName("android.app.IActivityTaskManager$Stub$Proxy")
 public class ActivityTaskManagerProxy {
@@ -26,7 +25,7 @@ public class ActivityTaskManagerProxy {
                               @HookName("android.app.ProfilerInfo") Object profilerInfo,
                               Bundle options) {
 
-        Log.d(TAG, "startActivity called " + intent, new Exception());
+        Slog.d(TAG, "startActivity called " + intent, new Exception());
         return ArtEngine.callOrigin(thiz, appThread, callingPackage, xx, intent,
                 resolvedType, resultTo, resultWho, requestCode, flags, profilerInfo, options);
     }

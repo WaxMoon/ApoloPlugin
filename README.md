@@ -1,7 +1,7 @@
 # ApoloPlugin
 
 ![](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)
-![](https://img.shields.io/badge/release-0.0.6-red.svg?style=flat)
+![](https://img.shields.io/badge/release-0.0.7-red.svg?style=flat)
 ![](https://img.shields.io/badge/Android-8.1%20--%2012-blue.svg?style=flat)
 ![](https://img.shields.io/badge/arch-armeabi--v7a%20%7C%20arm64--v8a-blue.svg?style=flat)
 
@@ -14,8 +14,8 @@
 
 ## 最新版本号
 
-    ApoloPlugin: 0.0.6
-    xposed: 0.0.6
+    ApoloPlugin: 0.0.7
+    xposed: 0.0.7
 
 
 **注意**: 目前apolo还未正式发布release版本，版本change暂时只在微信群提供
@@ -86,14 +86,14 @@ Instrumentation::InstrumentationLevel Instrumentation::GetCurrentInstrumentation
 ApoloPlugin目前发布在[maven central](https://search.maven.org/), 方便接入
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:ApoloPlugin:0.0.6"
+    implementation "io.github.waxmoon:ApoloPlugin:0.0.7"
 }
 ```
 
 ### 如果您要使用xposed api，也可以增加xposed依赖
 ```Gradle
 dependencies {
-    implementation "io.github.waxmoon:xposed:0.0.6"
+    implementation "io.github.waxmoon:xposed:0.0.7"
 }
 ```
 

@@ -5,6 +5,7 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.apolo.helper.FileLogUtils;
 import com.apolo.helper.ProcessUtils;
 
 import org.apolo.ArtEngine;
@@ -37,6 +38,8 @@ public class DemoApplication extends Application {
     public void onCreate() {
         super.onCreate();
         sApp = this;
+        FileLogUtils.getInstance().init(this);
+        FileLogUtils.getInstance().clearLogs();
         HookInject.main();
     }
 
